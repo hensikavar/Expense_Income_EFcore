@@ -1,0 +1,48 @@
+﻿@model List<RKIT.Models.ExpenseModel>
+
+@{
+    ViewData["Title"] = "Expenses";
+}
+
+<h2>Expenses</h2>
+
+<!-- “Add Expense” button → goes to Create() with no id (Create mode) -->
+<a class="btn btn-primary mb-3" asp-action="Create">Add Expense</a>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th style="width: 180px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Amount.ToString("C")</td>
+                <td>@item.Description</td>
+                <td>@item.ExpenseDate.ToString("yyyy-MM-dd")</td>
+                <td>@item.Category?.Name</td>
+                <td>
+                    <!-- Edit: pass the ExpenseId to Create(id) -->
+                    <a class="btn btn-sm btn-warning" 
+                       asp-action="Create" 
+                       asp-route-id="@item.ExpenseId">
+                        Edit
+                    </a>
+                    <!-- Delete: immediately deletes and redirects back -->
+                    <a class="btn btn-sm btn-danger" 
+                       asp-action="Delete" 
+                       asp-route-id="@item.ExpenseId"
+                       onclick="return confirm('Are you sure you want to delete this expense?');">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

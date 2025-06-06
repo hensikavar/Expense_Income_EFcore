@@ -1,0 +1,30 @@
+﻿@model IEnumerable<RKIT.Models.CategoryModel>
+
+<h2>Category List</h2>
+<a asp-action="Create" class="btn btn-primary">Add Category</a>
+
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Name</td>
+                <td>@category.Type</td>
+                <td>
+                    <a asp-action="Create" asp-route-id="@category.CategoryId" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@category.CategoryId" class="btn btn-danger btn-sm"
+                       onclick="return confirm('Are you sure you want to delete this category?');">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
